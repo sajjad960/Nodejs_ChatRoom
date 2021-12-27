@@ -5,9 +5,6 @@ const server = http.createServer(app);
 // const socketio = require("socket.io");
 const io = require('socket.io')(server, { origins: '*:*'});
 
-// io.origins('*:*')
-
-
 app.get('/', (req, res) => {
   res.send('<h1>Hello world</h1>');
 });

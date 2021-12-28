@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-const { addUser } = require('./utils/helpers');
+const { addUser, getUser, removeUser } = require('./utils/helpers');
 const server = http.createServer(app);
 // const socketio = require("socket.io");
 const io = require('socket.io')(server, { origins: '*:*'});
@@ -32,6 +32,24 @@ io.on('connection', (socket) => {
       } else {
         console.log('join user', user);
       }
+    })
+
+    socket.on('sendMessage', (message, room_id, callback) => {
+      const user = getUser(socket.id);
+      const msgToStore = {
+        name: user.name,
+        user_id: user.user_id,
+        room_id,
+        text: message
+      }
+      console.log('messsage', msgToStore);
+
+      io.to(room_id).emit('message', msgToStore);
+      // callback()
+    })
+
+    socket.on('disconnect', () => {
+      const user = removeUser(socket.id)
     })
 });
 

@@ -18,6 +18,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('join', ({name, room_id, user_id}) => {
+      console.log('i am calling server');
       const {error, user} = addUser({
         socket_id: socket.id,
         name,

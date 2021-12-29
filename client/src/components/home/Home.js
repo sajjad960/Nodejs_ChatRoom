@@ -17,6 +17,7 @@ const Home = () => {
 
     const { user, setUser } = useContext(UserContext);
     const [room, setRoom] = useState('')
+    const [rooms, setRooms] = useState([])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -25,16 +26,27 @@ const Home = () => {
         setRoom('')
 
     }
-    const rooms = [
-        {
-            name: 'room1',
-            _id: '123'
-        },
-        {
-            name: 'room2',
-            _id: '456'
-        }
-    ]
+    useEffect(() => {
+        socket.on('output-rooms', rooms => {
+            setRooms(rooms)
+        })
+    }, [])
+    
+    useEffect(() => {
+        socket.on('room-created', room => {
+            setRooms([...rooms, room])
+        })
+    }, [rooms])
+    // const rooms = [
+    //     {
+    //         name: 'room1',
+    //         _id: '123'
+    //     },
+    //     {
+    //         name: 'room2',
+    //         _id: '456'
+    //     }
+    // ]
     const setAsJohn = () => {
         const john = {
             name: 'John',

@@ -1,6 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const app = express();
+
+// routes
+const authRoutes = require('./routes/authRoutes')
+app.use(express.json())
+app.use(authRoutes)
+
 const http = require('http');
 const { addUser, getUser, removeUser } = require('./utils/helpers');
 const Room = require('./models/Room');

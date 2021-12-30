@@ -1,11 +1,39 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const app = express();
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
-// routes
+//env
+const dotenv = require('dotenv') 
+dotenv.config({ path: "./config.env"})
+
+//cors
+app.use(cors({
+  credentials: 'include',
+  origin: '*'
+}));
+
+
+
+// routes connection
 const authRoutes = require('./routes/authRoutes')
 app.use(express.json())
 app.use(authRoutes)
+app.use(cookieParser())
+
+
+// cookies area
+app.get('/set-cookies', (req, res) => {
+  res.cookie('username', 'Tony');
+  res.cookie('isAuthenticated', true, { maxAge: 24 * 60 * 60 * 1000 });
+  res.send('cookies are set');
+})
+app.get('/get-cookies', (req, res) => {
+  const cookies = req.cookies;
+  console.log(cookies);
+  res.json(cookies);
+})
 
 const http = require('http');
 const { addUser, getUser, removeUser } = require('./utils/helpers');

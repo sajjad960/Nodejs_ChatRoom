@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
-import { hostAddress } from '../../utils/helpers'
+import React, { useContext, useState } from 'react'
+import { hostAddress } from '../../utils/helpers';
+import { UserContext } from '../../UserContext';
+import { Redirect } from 'react-router-dom';
+
 
 const Signup = () => {
     const [name, setName] = useState('')
@@ -8,6 +11,10 @@ const Signup = () => {
     const [nameError, setNameError] = useState('')
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
+
+    const { user, setUser } = useContext(UserContext);
+
+
     const submitHandler = async e => {
         e.preventDefault();
 
@@ -32,7 +39,16 @@ const Signup = () => {
             setNameError(data.errors.name);
             setPasswordError(data.errors.password);
         }
+       
+        if(data.user) {
+            setUser(data.user)
+            localStorage.setItem('jwt', data.token)
+        }
 
+    }
+
+    if(user) {
+        return <Redirect to='/'/>
     }
     return (
 

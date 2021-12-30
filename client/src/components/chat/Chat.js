@@ -21,7 +21,7 @@ const Chat = () => {
             if(!user) {
                 return alert('No user available')
             }
-            socket.emit('join', {name: user.name, room_id, user_id: user.id})
+            socket.emit('join', {name: user.name, room_id, user_id: user._id})
         
     }, []);
 
@@ -47,7 +47,7 @@ const Chat = () => {
             <h1>Chat {JSON.stringify(user)}</h1> */} 
           <div className="container">
 
-            <Messages messages={messages} user_id={user.id}/>
+            <Messages messages={messages} user_id={user._id}/>
             <Input message={message}
              setMessage={setMessage}
              sendMessage={sendMessage} />

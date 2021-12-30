@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserContext } from './UserContext';
 import Chat from './components/chat/Chat';
 import Home from './components/home/Home';
@@ -9,6 +9,33 @@ import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 function App() {
   const [user, setUser] = useState(null)
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+
+    if(!token) {
+      return ''
+    }
+    const verifyUser = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/verifyuser', {
+          method: 'GET',
+          credentials: 'same-origin',
+          // body: JSON.stringify({token}),
+          headers: { 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`}
+        });
+        const data = await res.json();
+        setUser(data);
+      } catch (error) {
+        console.log(error)
+      }
+
+
+    }
+    verifyUser()
+
+
+  }, [])
   return (
     <Router>
       <div className="App">

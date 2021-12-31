@@ -1,7 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import { UserContext } from '../../UserContext';
+
 
 const Navbar = () => {
+    const { user, setUser } = useContext(UserContext);
+
+    const logout = () => {
+        setUser('')
+        localStorage.removeItem('jwt')
+        return (
+            <Redirect to='/'/>
+        )
+    }
+
+
     return (
         <>
             <nav className="green">
@@ -12,14 +25,19 @@ const Navbar = () => {
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         <li><Link to='/login'>Login</Link></li>
                         <li><Link to='/signup'>Signup</Link></li>
-                        <li><Link to='/logout'>Logout</Link></li>
+                        {
+                         user ? <li><a href='/' onClick={logout}>Logout</a></li> : ''
+                        }
                     </ul>
                 </div>
             </nav>
             <ul class="sidenav" id="mobile-demo">
                 <li><Link to='/login'>Login</Link></li>
                 <li><Link to='/signup'>Signup</Link></li>
-                <li><a href="collapsible.html">Logout</a></li>
+                {
+                    user ? <li><a href='/' onClick={logout}>Logout</a></li> : ''
+                }
+                
             </ul>
         </>
 

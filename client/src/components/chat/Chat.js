@@ -45,7 +45,7 @@ const Chat = () => {
         
             console.log('I am calling');
             if(!user) {
-                return alert('No user available')
+                return alert('Please login or Singup')
             }
             socket.emit('join', {name: user.name, room_id, user_id: user._id})
         

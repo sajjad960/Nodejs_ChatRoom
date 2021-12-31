@@ -18,9 +18,12 @@ app.use(cors({
 
 // routes connection
 const authRoutes = require('./routes/authRoutes')
+const messageRoutes = require('./routes/messageRoutes')
 app.use(express.json())
 app.use(cookieParser())
 app.use(authRoutes)
+app.use(messageRoutes)
+
 
 
 // cookies area

@@ -62,7 +62,11 @@ module.exports.login = async (req, res) => {
 }
 
 module.exports.verifyuser = (req, res, next) => {
-    const token = req.cookies.jwt;
+    let token;
+    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+        token = req.headers.authorization.split(" ")[1];
+    }
+
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             console.log('decoded token', decodedToken)

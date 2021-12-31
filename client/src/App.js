@@ -7,6 +7,7 @@ import Home from './components/home/Home';
 import Navbar from './components/layout/Navbar';
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
+import { hostAddress } from './utils/helpers';
 function App() {
   const [user, setUser] = useState(null)
   useEffect(() => {
@@ -17,7 +18,7 @@ function App() {
     }
     const verifyUser = async () => {
       try {
-        const res = await fetch('http://localhost:5000/verifyuser', {
+        const res = await fetch(`${hostAddress}/verifyuser`, {
           method: 'GET',
           credentials: 'same-origin',
           // body: JSON.stringify({token}),

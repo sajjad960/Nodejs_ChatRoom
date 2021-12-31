@@ -41,6 +41,7 @@ const Login = () => {
         }
         if(data.user) {
             setUser(data.user)
+            localStorage.setItem('jwt', data.token)
         }
 
     }

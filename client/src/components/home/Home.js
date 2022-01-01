@@ -3,17 +3,18 @@ import { UserContext } from '../../UserContext';
 import { Link } from 'react-router-dom';
 import RoomList from './RoomList';
 import io from 'socket.io-client'
+import { hostAddress } from '../../utils/helpers';
 let socket;
 
 const Home = () => {
-    const ENDPT = 'localhost:5000';
+    // const ENDPT = 'localhost:5000';
     useEffect(() => {
-        socket = io(ENDPT)
+        socket = io(hostAddress)
         return () => {
             socket.emit('disconnected');
             socket.off()
         }
-    }, [ENDPT]);
+    }, [hostAddress]);
 
     const { user, setUser } = useContext(UserContext);
     const [room, setRoom] = useState('')

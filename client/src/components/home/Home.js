@@ -2,19 +2,25 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../UserContext';
 import { Link } from 'react-router-dom';
 import RoomList from './RoomList';
-import io from 'socket.io-client'
+import { io } from "socket.io-client";
 import { hostAddress } from '../../utils/helpers';
 let socket;
 
+
 const Home = () => {
-    // const ENDPT = 'localhost:5000';
+    
+    const ENDPT = 'api.chatroom.findsajjad.com';
+    // useEffect(() => {
+    //     socket = io.connect('localhost:10000', {secure: true});
+    // }, [])
     useEffect(() => {
-        socket = io(hostAddress)
+        socket = io("api.chatroom.findsajjad.com");
+
         return () => {
             socket.emit('disconnected');
             socket.off()
         }
-    }, [hostAddress]);
+    }, [ENDPT]);
 
     const { user, setUser } = useContext(UserContext);
     const [room, setRoom] = useState('')

@@ -44,7 +44,12 @@ const Room = require('./models/Room');
 const Message = require('./models/Message');
 const server = http.createServer(app);
 // const socketio = require("socket.io");
-const io = require('socket.io')(server, { origins: '*:*'});
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
 //connect mongoDB
 mongoose.connect('mongodb://localhost:27017/chatroom').then(() => console.log("DB connection successful"))

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../UserContext';
 import { Link, Redirect, useParams } from 'react-router-dom';
-import io from 'socket.io-client'
+import { io } from "socket.io-client";
 import Messages from './messages/Messages';
 import Input from './input/Input'
 import './Chat.css'
@@ -41,8 +41,7 @@ const Chat = () => {
     }, [room_id])
 
     useEffect(() => {
-        socket = io(ENDPT)
-        
+        socket = io("api.chatroom.findsajjad.com");        
             console.log('I am calling');
             if(!user) {
                 return alert('Please login or Singup')

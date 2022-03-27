@@ -42,8 +42,5 @@
   },
   "devDependencies": {
     "@types/socket.io-client": "^3.0.0"
-  },
-  "reactSnap": {
-    "puppeteerExecutablePath": "/usr/bin/google-chrome-unstable"
   }
 }
